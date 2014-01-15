@@ -35,13 +35,16 @@
 
     USAGE:
 
-        python pdbsrv_srv &
+        $ cd pdbsrv_dir/
+        $ python pdbsrv_srv.py -l mylogfile_not_in_workspace.log &
 
     This will attempt to connect to a server at localhost, creating one if
     necessary, and run until Jenkins ProcessTreeKiller comes along.
 
-    TODO make the logfile location be a commandline argument so that it doesn't
-    hold locks on sandboxes
+    AUTHORS:
+    
+        Steve Carter sweavo@gmail.com
+    
 """
 
 import argparse
