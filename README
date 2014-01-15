@@ -1,0 +1,46 @@
+pdbsrv_srv
+==========
+
+See the python docstring for more blurb.
+
+SYNOPSIS:
+
+	On-demand wrapper for MSPDBSRV.EXE. See https://issues.jenkins-ci.org/browse/JENKINS-9104 
+
+	You start the client inside your Jenkins job. If necessary, it starts the server.
+
+	The server lives while > 0 clients want it to. The server (tries to) ensure that MSPDBSRV.EXE
+	is running at all times. When the server dies (because the last client died) it 
+	takes MSPDBSRV.EXE down with it.
+
+INVOCATION:
+
+	$ BUILD_ID=something # not needed in Jenkins job
+	$ cd $location_of_pdbsrv_srv_dot_py  # see BUGS
+	$ python pdbsrv_srv.py -l /path/to/logfile.log &
+
+MONITORING:
+
+	Once running, you can 
+
+	$ telnet localhost 50005
+	> status
+	# status information
+	> [RETURN]
+	OK
+
+BUGS:
+
+	* BUILD_ID must be defined in the environment, which is a pain when you
+	  want to run it manually.
+
+	* you need to start it from directory the script is in, because it tries
+	  to recursively execute itself and only looks in the current dir.
+
+        * logging is a mess.
+
+	* status command doesn't tell you enough information. (Specifically, it 
+          doesn't help you much identifying the clients)
+
+ 	* Behavior is undefined (and likely broken) if MSPDBSRV.EXE is already
+	  running when the server starts.
